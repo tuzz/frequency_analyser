@@ -33,5 +33,18 @@ And collections of things:
 
 ```ruby
 FrequencyAnalyser.analyse('foo', File.new('bar'), StringIO.new('baz'), ['q', 'u', 'x'])
-#=> {'a'=>2, 'b'=>2, 'f'=>1, 'o'=>2, 'q'=>1, 'r'=>1, 'u'=>1, 'x'=>1, 'z'=>1}
+#=> { 'a'=>2, 'b'=>2, 'f'=>1, 'o'=>2, 'q'=>1, 'r'=>1, 'u'=>1, 'x'=>1, 'z'=>1 }
+```
+
+## Counting other things
+
+By defeault, Frequency Analyser counts alphabetic characters. You can
+change this by instantiating your own counter:
+
+```ruby
+counter = FrequencyAnalyser::Counter.new(%w(1 3 5 !))
+analyser = FrequencyAnalyser.new(counter)
+
+analyser.analyse('!12321!')
+#=> { '!'=>2, '1'=>2, '3'=>1 }
 ```

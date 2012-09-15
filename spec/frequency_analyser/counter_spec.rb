@@ -4,6 +4,17 @@ describe FrequencyAnalyser::Counter do
 
   subject { FrequencyAnalyser::Counter }
 
+  it 'can take an optional domain array' do
+    counter = subject.new(%w(1 3 5 !))
+
+    counter.count('foo bar baz').should be_empty
+    count = counter.count('!12321!')
+
+    count['1'].should == 2
+    count['2'].should == 0
+    count['!'].should == 2
+  end
+
   describe '#count' do
     let(:count) { subject.count('foo bar baz') }
 

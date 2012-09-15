@@ -1,7 +1,11 @@
 class FrequencyAnalyser < Struct.new(:counter, :aggregation)
 
+  def initialize(counter = Counter, aggregation = Aggregation.new)
+    super
+  end
+
   def self.analyse(*files)
-    new(Counter, Aggregation.new).analyse(*files)
+    new.analyse(*files)
   end
 
   def analyse(*files)
