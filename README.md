@@ -38,7 +38,7 @@ FrequencyAnalyser.analyse('foo', File.new('bar'), StringIO.new('baz'), ['q', 'u'
 
 ## Counting other things
 
-By defeault, Frequency Analyser counts alphabetic characters. You can
+By default, Frequency Analyser counts alphabetic characters. You can
 change this by instantiating your own counter:
 
 ```ruby
