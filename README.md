@@ -21,3 +21,17 @@ FrequencyAnalyser.analyse(file)
   'y'=>11849, 'z'=>213
 }
 ```
+
+You can analyse strings too:
+
+```ruby
+FrequencyAnalyser.analyse('Hello, world!')
+#=> { 'd'=>1, 'e'=>1, 'h'=>1, 'l'=>3, 'o'=>2, 'r'=>1, 'w'=>1 }
+```
+
+And collections of things:
+
+```ruby
+FrequencyAnalyser.analyse('foo', File.new('bar'), StringIO.new('baz'), ['q', 'u', 'x'])
+#=> {'a'=>2, 'b'=>2, 'f'=>1, 'o'=>2, 'q'=>1, 'r'=>1, 'u'=>1, 'x'=>1, 'z'=>1}
+```

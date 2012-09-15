@@ -1,13 +1,18 @@
 class FrequencyAnalyser < Struct.new(:counter, :aggregation)
 
-  def self.analyse(file)
-    new(Counter, Aggregation.new).analyse(file)
+  def self.analyse(*files)
+    new(Counter, Aggregation.new).analyse(*files)
   end
 
-  def analyse(file)
-    file.each_line do |line|
-      aggregation << counter.count(line)
+  def analyse(*files)
+    files = *files.flatten
+
+    files.each do |file|
+      file.each_line do |line|
+        aggregation << counter.count(line)
+      end
     end
+
     aggregation
   end
 
