@@ -9,7 +9,7 @@ class FrequencyAnalyser::Aggregator < Struct.new(:counter, :aggregation)
   end
 
   def aggregate(*files)
-    files = [files].flatten
+    files = coerce(files)
     files.each do |file|
       file.each_line do |line|
         aggregation << counter.count(line)
@@ -21,6 +21,10 @@ class FrequencyAnalyser::Aggregator < Struct.new(:counter, :aggregation)
   private
   def fa
     FrequencyAnalyser
+  end
+
+  def coerce(files)
+    [files].flatten
   end
 
 end
