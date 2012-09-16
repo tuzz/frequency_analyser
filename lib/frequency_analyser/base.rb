@@ -1,6 +1,6 @@
-class FrequencyAnalyser < Struct.new(:aggregator)
+class FrequencyAnalyser < Struct.new(:aggregator, :modifier)
 
-  def initialize(aggregator = Aggregator)
+  def initialize(aggregator = Aggregator, modifier = Modifier)
     super
   end
 
@@ -11,15 +11,7 @@ class FrequencyAnalyser < Struct.new(:aggregator)
   def analyse(*args)
     files, mode = coerce(args)
     aggregation = aggregator.aggregate(files)
-
-    case mode
-    when :probability
-      probability(aggregation)
-    when :percentage
-      percentage(aggregation)
-    else
-      aggregation
-    end
+    modifier.modify(aggregation, mode)
   end
 
   private
@@ -28,24 +20,6 @@ class FrequencyAnalyser < Struct.new(:aggregator)
     mode = files.pop if files.last.is_a? Symbol
 
     [files, mode]
-  end
-
-  def probability(aggregation)
-    sum = sum(aggregation)
-    aggregation.inject(aggregation) do |hash, (k, v)|
-      hash.merge!(k => v.to_f / sum)
-    end
-  end
-
-  def percentage(aggregation)
-    sum = sum(aggregation)
-    aggregation.inject(aggregation) do |hash, (k, v)|
-      hash.merge!(k => v.to_f / sum * 100)
-    end
-  end
-
-  def sum(aggregation)
-    aggregation.values.inject(:+)
   end
 
 end
