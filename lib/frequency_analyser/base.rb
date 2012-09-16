@@ -1,6 +1,6 @@
-class FrequencyAnalyser < Struct.new(:counter, :aggregation)
+class FrequencyAnalyser < Struct.new(:aggregator)
 
-  def initialize(counter = Counter, aggregation = Aggregation.new)
+  def initialize(aggregator = Aggregator)
     super
   end
 
@@ -10,7 +10,7 @@ class FrequencyAnalyser < Struct.new(:counter, :aggregation)
 
   def analyse(*args)
     files, mode = coerce(args)
-    aggregation = aggregate(files)
+    aggregation = aggregator.aggregate(files)
 
     case mode
     when :probability
@@ -28,15 +28,6 @@ class FrequencyAnalyser < Struct.new(:counter, :aggregation)
     mode = files.pop if files.last.is_a? Symbol
 
     [files, mode]
-  end
-
-  def aggregate(files)
-    files.each do |file|
-      file.each_line do |line|
-        aggregation << counter.count(line)
-      end
-    end
-    aggregation
   end
 
   def probability(aggregation)
