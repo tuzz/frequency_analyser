@@ -41,4 +41,24 @@ describe FrequencyAnalyser do
     percentages['z'].should == 0
   end
 
+  it 'does not persist aggregations between calls' do
+    aggregation1 = subject.analyse("foo BAR\nbaz")
+    aggregation2 = subject.analyse("foo BAR\nbaz")
+    aggregation3 = subject.analyse("foo BAR\nbaz")
+
+    aggregation1.should == aggregation2
+    aggregation1.should == aggregation3
+  end
+
+  it 'does not persist modifications between calls' do
+    percentages = subject.analyse("foo BAR\nbaz", :percentage)
+    aggregation = subject.analyse("foo BAR\nbaz")
+    aggregation.should_not == percentages
+
+    probabilities = subject.analyse("foo BAR\nbaz", :probability)
+    aggregation = subject.analyse("foo BAR\nbaz")
+    aggregation.should_not == probabilities
+  end
+
+
 end

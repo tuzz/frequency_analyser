@@ -14,6 +14,7 @@ class FrequencyAnalyser::Aggregator < Struct.new(:counter, :aggregation)
       file.each_line do |line|
         aggregation << counter.count(line)
       end
+      reset(file)
     end
     aggregation
   end
@@ -25,6 +26,12 @@ class FrequencyAnalyser::Aggregator < Struct.new(:counter, :aggregation)
 
   def coerce(files)
     [files].flatten
+  end
+
+  def reset(file)
+    if file.respond_to? :pos
+      file.pos = 0
+    end
   end
 
 end

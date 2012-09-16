@@ -48,4 +48,12 @@ describe FrequencyAnalyser::Aggregator do
     aggregation['x'].should == 1
   end
 
+  it 'is pure' do
+    file = StringIO.new("foo BAR\nbaz")
+    aggregation1 = subject.aggregate(file)
+    aggregation2 = subject.aggregate(file)
+    aggregation1.should == aggregation2
+    file.read.should == "foo BAR\nbaz"
+  end
+
 end
