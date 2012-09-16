@@ -11,6 +11,7 @@ class FrequencyAnalyser::Modifier < Struct.new(:aggregation)
     when :percentage
       percentage
     else
+      warn_unrecognised(mode) if mode
       aggregation
     end
   end
@@ -30,6 +31,11 @@ class FrequencyAnalyser::Modifier < Struct.new(:aggregation)
 
   def sum
     @sum ||= aggregation.values.inject(:+)
+  end
+
+  def warn_unrecognised(mode)
+    print "Warning: '#{mode}' is not a recognised mode."
+    puts " (#{__FILE__}:#{__LINE__})"
   end
 
 end
