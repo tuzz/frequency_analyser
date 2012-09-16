@@ -65,3 +65,5 @@ analyser   = FrequencyAnalyser.new(aggregator)
 analyser.analyse('!12321!')
 #=> { '!'=>2, '1'=>2, '3'=>1 }
 ```
+
+Most of the gem is architected in this way, so it should be straightforward to add new modes, for example.
