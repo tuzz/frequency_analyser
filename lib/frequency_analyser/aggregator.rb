@@ -1,6 +1,6 @@
 class FrequencyAnalyser::Aggregator < Struct.new(:counter, :aggregation)
 
-  def initialize(counter = fa::Counter, aggregation = fa::Aggregation.new)
+  def initialize(counter = fa::Counter, aggregation = fa::Aggregation)
     super
   end
 
@@ -9,14 +9,15 @@ class FrequencyAnalyser::Aggregator < Struct.new(:counter, :aggregation)
   end
 
   def aggregate(*files)
+    hash = aggregation.new
     files = coerce(files)
     files.each do |file|
       file.each_line do |line|
-        aggregation << counter.count(line)
+        hash << counter.count(line)
       end
       reset(file)
     end
-    aggregation
+    hash
   end
 
   private
