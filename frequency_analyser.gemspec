@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'frequency_analyser'
-  s.version     = '1.2.4'
+  s.version     = '1.3.0'
   s.summary     = 'Frequency Analyser'
   s.description = 'Compose a hash containing the frequencies of characters in text'
   s.author      = 'Christopher Patuzzo'
