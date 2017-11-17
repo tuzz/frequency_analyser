@@ -67,9 +67,3 @@ analyser.analyse('!12321!')
 ```
 
 Most of the gem is architected in this way, so it should be straightforward to add new modes, for example.
-
-## Contribution
-
-Feel free. No pull request is too small.
-
-You should follow me: [@cpatuzzo](https://twitter.com/#!/cpatuzzo)
